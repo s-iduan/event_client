@@ -12,12 +12,9 @@ import android.widget.Toast;
 import com.example.event_cord.RestClient.GetDataService;
 import com.example.event_cord.RestClient.RestClient;
 import com.example.event_cord.model.Constants;
-import com.example.event_cord.model.Event;
 import com.example.event_cord.model.Notice;
-import com.example.event_cord.model.UserEventPair;
 import com.example.event_cord.utility.Helper;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +35,6 @@ public class CreateNoticeActivity extends AppCompatActivity {
     private String mNoticeTitle;
     private String mNoticeDescription;
     private boolean mIsEditing;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +65,6 @@ public class CreateNoticeActivity extends AppCompatActivity {
                 } else {
                     updateNotice();
                 }
-
             }
         });
 
@@ -107,7 +102,6 @@ public class CreateNoticeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(CreateNoticeActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -135,7 +129,6 @@ public class CreateNoticeActivity extends AppCompatActivity {
                 Intent intent = new Intent(CreateNoticeActivity.this, EventDetailActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
             }
 
             @Override
@@ -143,6 +136,5 @@ public class CreateNoticeActivity extends AppCompatActivity {
                 Toast.makeText(CreateNoticeActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

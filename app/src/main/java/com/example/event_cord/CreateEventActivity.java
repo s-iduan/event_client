@@ -36,10 +36,12 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         Bundle bundle = getIntent().getExtras();
-        mEventId = bundle.getInt(Constants.EVENT_ID_KEY);
-        mEventTitle = bundle.getString(Constants.EVENT_TITLE_KEY);
-        mEventDescription = bundle.getString(Constants.EVENT_DESCRIPTION_KEY);
-        mIsEditing = bundle.getBoolean(Constants.EVENT_IS_EDITING_KEY);
+        if (bundle != null) {
+            mEventId = bundle.getInt(Constants.EVENT_ID_KEY, 0);
+            mEventTitle = bundle.getString(Constants.EVENT_TITLE_KEY, "");
+            mEventDescription = bundle.getString(Constants.EVENT_DESCRIPTION_KEY, "");
+            mIsEditing = bundle.getBoolean(Constants.EVENT_IS_EDITING_KEY, false);
+        }
 
         mCreateButton = findViewById(R.id.createEvent);
         mTitle = findViewById(R.id.EditTextTitle);
@@ -48,7 +50,11 @@ public class CreateEventActivity extends AppCompatActivity {
         mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createEvent();
+                if (!mIsEditing) {
+                    createEvent();
+                } else {
+                    updateEvent();
+                }
             }
         });
 
