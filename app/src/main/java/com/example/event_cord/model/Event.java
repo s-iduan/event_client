@@ -15,14 +15,20 @@ public class Event {
     private long mCreatetime;
     @SerializedName("last_modify_time")
     private long mLastModifytime;
+    @SerializedName("start_time")
+    private long mStartTime;
+    @SerializedName("end_time")
+    private long mEndTime;
 
     public Event(
         int id,
         int userId,
         String name,
-        String description
+        String description,
+        long startTime,
+        long endTime
     ) {
-        this(id, userId, name, description, 0,0);
+        this(id, userId, name, description, 0,0, startTime, endTime);
     }
 
     public Event(
@@ -31,7 +37,9 @@ public class Event {
             String name,
             String description,
             long createTime,
-            long LastModifyTime
+            long LastModifyTime,
+            long startTime,
+            long endTime
     ) {
         mId = id;
         mUserId = userId;
@@ -39,6 +47,8 @@ public class Event {
         mDescription = description;
         mCreatetime = createTime;
         mLastModifytime = LastModifyTime;
+        mStartTime = startTime;
+        mEndTime = endTime;
     }
 
     public int getId() {
@@ -63,5 +73,13 @@ public class Event {
 
     public long getLastModifytime() {
         return mLastModifytime;
+    }
+
+    public long getStartTime() {
+        return mStartTime;
+    }
+
+    public long getEndTime() {
+        return mEndTime;
     }
 }

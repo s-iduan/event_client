@@ -18,14 +18,15 @@
         <activity android:name=".EventDetailActivity" />
         <activity android:name=".UserRegistration" />
         <activity android:name=".UserLogin">
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".EventsActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".EventsActivity" />
     </application>
 
 </manifest>

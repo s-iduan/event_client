@@ -69,6 +69,8 @@ public class EventsActivity extends AppCompatActivity {
             bundle.putString(Constants.EVENT_DESCRIPTION_KEY, item.getDescription());
             bundle.putLong(Constants.EVENT_LAST_MODIFIED_TIME_KEY, item.getLastModifytime());
             bundle.putInt(Constants.EVENT_CREATOR_ID_KEY, item.getUserId());
+            bundle.putLong(Constants.EVENT_START_TIME, item.getStartTime());
+            bundle.putLong(Constants.EVENT_END_TIME, item.getEndTime());
             bundle.putBoolean(Constants.EVENT_IS_EDITING_KEY, true);
 
             Intent intent = new Intent(EventsActivity.this, CreateEventActivity.class);
@@ -80,7 +82,7 @@ public class EventsActivity extends AppCompatActivity {
     OnEventDeletionHandler mEventDeletionHandler = new OnEventDeletionHandler() {
         @Override
         public void deleteEvent(int eventId) {
-            Event event = new Event(eventId, 0, "","", 0, 0);
+            Event event = new Event(eventId, 0, "", "",0,0);
 
             GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
             Call<Void> call = service.deleteEvent(eventId);

@@ -19,6 +19,8 @@ public class Constants {
     public static String EVENT_CREATOR_ID_KEY = "event_creator";
     public static String EVENT_LAST_MODIFIED_TIME_KEY = "last_modify_time";
     public static String EVENT_IS_EDITING_KEY = "is_editing";
+    public static String EVENT_START_TIME = "event_start_time";
+    public static String EVENT_END_TIME = "event_end_time";
 
     public static String NOTICE_IS_EDITING_KEY = "is_editing";
     public static String NOTICE_ID_KEY = "notice_id";
