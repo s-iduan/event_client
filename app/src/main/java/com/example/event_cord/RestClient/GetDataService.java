@@ -26,6 +26,9 @@ public interface GetDataService {
     @GET("/api/events/all/{id}")
     Call<List<Event>> getAllEvents(@Path("id") Integer id);
 
+    @GET("/api/events/all/{id}/{start}/{end}")
+    Call<List<Event>> getAllEvents(@Path("id") Integer id, @Path("start") Long startTime, @Path("end") Long EndTime);
+
     @POST("/api/event")
     Call<UserEventPair> createEvent(@Body Event event);
 

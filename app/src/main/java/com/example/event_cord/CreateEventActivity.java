@@ -54,6 +54,7 @@ public class CreateEventActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             Calendar mCalender = Calendar.getInstance();
+            mCalender.clear();
             mCalender.set(Calendar.YEAR, year);
             mCalender.set(Calendar.MONTH, month);
             mCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -72,6 +73,7 @@ public class CreateEventActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             Calendar mCalender = Calendar.getInstance();
+            mCalender.clear();
             mCalender.set(Calendar.YEAR, year);
             mCalender.set(Calendar.MONTH, month);
             mCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
