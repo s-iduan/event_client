@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.event_cord.R;
 import com.example.event_cord.model.Notice;
+import com.example.event_cord.utility.Helper;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -82,26 +83,29 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem deleteMenuItem = menu.add("Delete");
-            MenuItem editMenuItem = menu.add("Edit");
-            deleteMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    if(mDeletionHandler != null) {
-                        mDeletionHandler.deleteNotice(mNotice.getId());
+
+            if (mNotice.getUserId() == Helper.getLoggedinUserId(v.getContext())) {
+                MenuItem deleteMenuItem = menu.add("Delete");
+                MenuItem editMenuItem = menu.add("Edit");
+                deleteMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (mDeletionHandler != null) {
+                            mDeletionHandler.deleteNotice(mNotice.getId());
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-            editMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    if (mOnNoticeEditHandler != null) {
-                        mOnNoticeEditHandler.updateNotice(mNotice);
+                });
+                editMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (mOnNoticeEditHandler != null) {
+                            mOnNoticeEditHandler.updateNotice(mNotice);
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
+            }
         }
     }
 }

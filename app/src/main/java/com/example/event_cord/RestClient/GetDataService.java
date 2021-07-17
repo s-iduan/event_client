@@ -23,8 +23,8 @@ public interface GetDataService {
     @GET("/api/events/user/{id}")
     Call<List<Event>> getMyEvents(@Path("id") Integer id);
 
-    @GET("/api/events")
-    Call<List<Event>> getAllEvents();
+    @GET("/api/events/all/{id}")
+    Call<List<Event>> getAllEvents(@Path("id") Integer id);
 
     @POST("/api/event")
     Call<UserEventPair> createEvent(@Body Event event);

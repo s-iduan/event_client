@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -39,6 +40,7 @@ public class UserLogin extends AppCompatActivity {
     private Button submitButton;
     private EditText emailEditText;
     private EditText passwordEditText;
+    private TextView registerLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,9 @@ public class UserLogin extends AppCompatActivity {
         long expiration = sharedPreferences.getLong(Constants.EXPIRATION, -1);
 
         if (loggedinUser != "" && expiration < LocalDateTime.now().toLocalDate().toEpochDay()) {
-            startLogin();
-        } else {
             startEventActivity();
+        } else {
+            startLogin();
         }
     }
 
@@ -60,7 +62,15 @@ public class UserLogin extends AppCompatActivity {
         submitButton = findViewById(R.id.login);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
+        registerLink = findViewById(R.id.textViewRegister);
 
+        registerLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserLogin.this, UserRegistration.class);
+                startActivity(intent);
+            }
+        });
 
         emailEditText.addTextChangedListener(new TextWatcher() {
             @Override

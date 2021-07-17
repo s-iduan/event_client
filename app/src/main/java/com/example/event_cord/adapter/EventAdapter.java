@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.event_cord.R;
 import com.example.event_cord.model.Event;
+import com.example.event_cord.utility.Helper;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -86,28 +88,31 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.CustomViewHo
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem deleteMenuItem = menu.add("Delete");
-            MenuItem editMenuItem = menu.add("Edit");
-            deleteMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    Toast.makeText(v.getContext(), "event id : " + mEvent.getId(), Toast.LENGTH_LONG).show();
-                    if (mDeletionHandler != null) {
-                        mDeletionHandler.deleteEvent(mEvent.getId());
+            if (mEvent.getUserId() == Helper.getLoggedinUserId(v.getContext())) {
+                MenuItem deleteMenuItem = menu.add("Delete");
+                deleteMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(v.getContext(), "event id : " + mEvent.getId(), Toast.LENGTH_LONG).show();
+                        if (mDeletionHandler != null) {
+                            mDeletionHandler.deleteEvent(mEvent.getId());
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-            editMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    Toast.makeText(v.getContext(), "event id : " + mEvent.getId(), Toast.LENGTH_LONG).show();
-                    if (mOnEventEditHandler != null) {
-                        mOnEventEditHandler.editEvent(mEvent);
+                });
+
+                MenuItem editMenuItem = menu.add("Edit");
+                editMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(v.getContext(), "event id : " + mEvent.getId(), Toast.LENGTH_LONG).show();
+                        if (mOnEventEditHandler != null) {
+                            mOnEventEditHandler.editEvent(mEvent);
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
+            }
         }
     }
 }

@@ -163,7 +163,7 @@ public class EventsActivity extends AppCompatActivity {
             return;
         }
 
-        Call<List<Event>> call = service.getAllEvents();
+        Call<List<Event>> call = service.getAllEvents(Helper.getLoggedinUserId(this));
         if (showOnlyMyEvents) {
             call = service.getMyEvents(userId);
         }

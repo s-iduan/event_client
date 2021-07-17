@@ -156,6 +156,11 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
 
+        if (mCreatorId == Helper.getLoggedinUserId(this)) {
+            mLeaveEvent.setEnabled(false);
+            mJoinEvent.setEnabled(false);
+        }
+
         checkIfUserInTheEvent();
         updateNoticeList();
     }

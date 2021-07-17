@@ -90,7 +90,7 @@ public class CreateEventActivity extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             updateTimeField(mStartTime, hourOfDay, minute);
-            mStartTimeLong = (hourOfDay * 60 + minute) * 1000;
+            mStartTimeLong = (hourOfDay * 60 + minute) * 60 * 1000;
         }
     };
 
@@ -98,7 +98,7 @@ public class CreateEventActivity extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             updateTimeField(mEndTime, hourOfDay, minute);
-            mEndTimeLong = (hourOfDay * 60 + minute) * 1000;
+            mEndTimeLong = (hourOfDay * 60 + minute) * 60 * 1000;
         }
     };
 
@@ -212,7 +212,7 @@ public class CreateEventActivity extends AppCompatActivity {
         String description = mDescription.getText().toString();
         int userId = Helper.getLoggedinUserId(this);
 
-        Event event = new Event(-1, userId, title, description, mStartTimeLong+ mStartDateLong, mEndDateLong + mEndTimeLong);
+        Event event = new Event(-1, userId, title, description, mStartDateLong + mStartTimeLong, mEndDateLong + mEndTimeLong);
         GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
         Call<UserEventPair> call = service.createEvent(event);
 
@@ -259,7 +259,7 @@ public class CreateEventActivity extends AppCompatActivity {
         mStartDateLong = mCalender.getTime().getTime();
         updateDateField(mStartDate, mCalender.getTime());
 
-        mStartTimeLong = (hour * 60 + minute) * 1000;
+        mStartTimeLong = (hour * 60 + minute) * 60 * 1000;
         updateTimeField(mStartTime, hour, minute);
 
     }
@@ -278,10 +278,9 @@ public class CreateEventActivity extends AppCompatActivity {
         mEndDateLong = mCalender.getTime().getTime();
         updateDateField(mEndDate, mCalender.getTime());
 
-        mEndTimeLong = (hour * 60 + minute) * 1000;
+        mEndTimeLong = (hour * 60 + minute) * 60 * 1000;
         updateTimeField(mEndTime, hour, minute);
     }
-
 
     private void updateDateField(EditText textField, Date date) {
         String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date);
