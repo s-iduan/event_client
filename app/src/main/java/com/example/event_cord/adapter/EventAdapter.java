@@ -1,6 +1,5 @@
 package com.example.event_cord.adapter;
 
-import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;

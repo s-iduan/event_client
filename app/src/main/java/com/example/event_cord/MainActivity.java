@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading....");
         progressDialog.show();
 
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
 
         Call<List<User>> call = service.getAllUsers();
         call.enqueue(new Callback<List<User>>() {

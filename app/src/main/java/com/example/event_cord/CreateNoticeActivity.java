@@ -81,7 +81,7 @@ public class CreateNoticeActivity extends AppCompatActivity {
         String description = mDescription.getText().toString();
 
         Notice notice = new Notice(mNoticeId, userId, mEventId, title, description);
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         Call<Void> call = service.updateNotice(notice);
 
         call.enqueue(new Callback<Void>() {
@@ -112,7 +112,7 @@ public class CreateNoticeActivity extends AppCompatActivity {
         String description = mDescription.getText().toString();
 
         Notice notice = new Notice(0, userId, mEventId, title, description);
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         Call<Notice> call = service.createNotice(notice);
 
         call.enqueue(new Callback<Notice>() {

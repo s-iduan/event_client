@@ -113,7 +113,7 @@ public class UserLogin extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 User user = new User(-1, "", email, password, 0);
-                GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+                GetDataService service = RestClient.getRetrofit(UserLogin.this).create(GetDataService.class);
 
                 Call<User> call = service.getLoginUser(user);
 

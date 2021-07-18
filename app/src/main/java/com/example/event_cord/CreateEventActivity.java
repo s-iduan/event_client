@@ -189,7 +189,7 @@ public class CreateEventActivity extends AppCompatActivity {
         int userId = Helper.getLoggedinUserId(this);
 
         Event event = new Event(mEventId, userId, title, description, mStartDateLong+ mStartTimeLong, mEndDateLong + mEndTimeLong);
-        GetDataService service = RestClient.getRetrofit().create((GetDataService.class));
+        GetDataService service = RestClient.getRetrofit(this).create((GetDataService.class));
         Call<Void> call = service.updateEvent(event);
 
         call.enqueue(new Callback<Void>() {
@@ -215,7 +215,7 @@ public class CreateEventActivity extends AppCompatActivity {
         int userId = Helper.getLoggedinUserId(this);
 
         Event event = new Event(-1, userId, title, description, mStartDateLong + mStartTimeLong, mEndDateLong + mEndTimeLong);
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         Call<UserEventPair> call = service.createEvent(event);
 
         call.enqueue(new Callback<UserEventPair>() {

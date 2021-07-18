@@ -85,7 +85,7 @@ public class EventCalendarActivity extends AppCompatActivity {
         public void deleteEvent(int eventId) {
             Event event = new Event(eventId, 0, "", "",0,0);
 
-            GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+            GetDataService service = RestClient.getRetrofit(EventCalendarActivity.this).create(GetDataService.class);
             Call<Void> call = service.deleteEvent(eventId);
 
             call.enqueue(new Callback<Void>() {
@@ -139,7 +139,7 @@ public class EventCalendarActivity extends AppCompatActivity {
     }
 
     private void updateEventList() {
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         int userId = Helper.getLoggedinUserId(this);
         if (userId < 0) {
             Log.e(TAG, "wrong user id returned, ask user to log in again");

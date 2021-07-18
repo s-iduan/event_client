@@ -62,7 +62,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private OnNoticeDeletionHandler mOnNoticeDeletionHandler = new OnNoticeDeletionHandler() {
         @Override
         public void deleteNotice(int noticeId) {
-            GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+            GetDataService service = RestClient.getRetrofit(EventDetailActivity.this).create(GetDataService.class);
             Call<Void> call = service.deleteNotice(noticeId);
 
             call.enqueue(new Callback<Void>() {
@@ -166,7 +166,7 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     void checkIfUserInTheEvent() {
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         UserEventPair pair = new UserEventPair(Helper.getLoggedinUserId(this), mEventId, 0);
         Call<ResponseBody> call = service.checkUserEvent(pair.getUserId(), pair.getEventId());
 
@@ -191,7 +191,7 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     void joinEvent() {
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         UserEventPair pair = new UserEventPair(Helper.getLoggedinUserId(this), mEventId, 0);
         Call<UserEventPair> call = service.joinEvent(pair);
 
@@ -212,7 +212,7 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     void leaveEvent() {
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         UserEventPair pair = new UserEventPair(Helper.getLoggedinUserId(this), mEventId, 0);
         Call<UserEventPair> call = service.leaveEvent(pair);
 
@@ -233,7 +233,7 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     void updateNoticeList() {
-        GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+        GetDataService service = RestClient.getRetrofit(this).create(GetDataService.class);
         Call<List<Notice>>call = service.getNotices(mEventId);
 
         call.enqueue(new Callback<List<Notice>>() {

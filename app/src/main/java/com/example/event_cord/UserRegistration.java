@@ -45,7 +45,7 @@ public class UserRegistration extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 User user = new User(-1, name, email, password, 0);
-                GetDataService service = RestClient.getRetrofit().create(GetDataService.class);
+                GetDataService service = RestClient.getRetrofit(UserRegistration.this).create(GetDataService.class);
 
                 Call<User> call = service.createUser(user);
 
