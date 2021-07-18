@@ -43,7 +43,6 @@ public class RestClient {
         InputStream inputStream = res.openRawResource(R.raw.selfsigned);
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-//        InputStream caInput = new FileInputStream(cerFilePath);
         Certificate ca;
         try {
             ca = cf.generateCertificate(inputStream);
@@ -55,9 +54,6 @@ public class RestClient {
     }
 
     private static SSLSocketFactory getSSLConfig(Context context) throws Exception {
-//        FileHelper fileHelper = FileHelper.getInstance();
-//        String downloadPath = fileHelper.getDeviceDownloadPath() + File.separator;
-//        String[] cerFilePath = new String[]{downloadPath + "ServerCertificate.cer", downloadPath + "ServerCertificate2.cer", downloadPath + "ServerCertificate3.cer", downloadPath + "ServerCertificate4.cer"};
 
         String keyStoreType = KeyStore.getDefaultType();
         KeyStore keyStore = KeyStore.getInstance(keyStoreType);
@@ -65,11 +61,6 @@ public class RestClient {
 
         Certificate ca = getCertificate(context);
         keyStore.setCertificateEntry("ca", ca);
-
-//        for (int i = 0; i < cerFilePath.length; i++) {
-//            Certificate ca = getCertificate(cerFilePath[i]);
-//            keyStore.setCertificateEntry("ca" + i, ca);
-//        }
 
         // Create a TrustManager that trusts the CAs in our KeyStore
         String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
@@ -83,7 +74,6 @@ public class RestClient {
     }
 
     public static Retrofit getRetrofit(Context context) {
-//        OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         try {
             SSLSocketFactory factory = getSSLConfig(context);
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -95,7 +85,7 @@ public class RestClient {
                         }
                     })
                     .build();
-            
+
             if (retrofit == null) {
                 retrofit = new Retrofit.Builder()
                         .baseUrl(Constants.REST_API_BASE_URL)

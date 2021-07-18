@@ -43,9 +43,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.CustomViewHo
     public void onBindViewHolder(EventAdapter.CustomViewHolder holder, int position) {
         holder.nameView.setText(mEventList.get(position).getName());
         holder.descriptionView.setText(mEventList.get(position).getDescription());
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aaa");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm aaa");
         String timeStr = sdf.format(mEventList.get(position).getLastModifytime());
-        holder.lastModifiedView.setText(timeStr);
+        String startTimeStr = sdf.format(mEventList.get(position).getStartTime());
+        String endTimeStr = sdf.format(mEventList.get(position).getEndTime());
+        holder.lastModifiedView.setText(startTimeStr + " to " + endTimeStr);
         holder.mEvent = mEventList.get(position);
         holder.mDeletionHandler = mDeletionHandler;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
