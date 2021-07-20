@@ -1,9 +1,12 @@
 package com.example.event_cord;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +27,10 @@ public class CreateNoticeActivity extends AppCompatActivity {
     private Button mCreateButton;
     private EditText mTitle;
     private EditText mDescription;
+    private Toolbar toolbar;
+
+    private MenuItem calendarItem;
+    private MenuItem listItem;
 
     private int mEventId;
     private int mCreatorId;
@@ -40,6 +47,8 @@ public class CreateNoticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_notice);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
         mEventId = bundle.getInt(Constants.EVENT_ID_KEY);
@@ -73,6 +82,31 @@ public class CreateNoticeActivity extends AppCompatActivity {
             mDescription.setText(mNoticeDescription);
             mCreateButton.setText("Update Notice");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        calendarItem = menu.findItem(R.id.calendarMenuItem);
+        listItem = menu.findItem(R.id.listMenuItem);
+
+        calendarItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToCalendarView(CreateNoticeActivity.this);
+                return true;
+            }
+        });
+
+        listItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToListView(CreateNoticeActivity.this);
+                return true;
+            }
+        });
+        return true;
     }
 
     private void updateNotice() {

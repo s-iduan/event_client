@@ -6,14 +6,23 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:layout_alignParentStart="true"
 android:layout_alignParentTop="true"
-android:layout_margin="10dp"
 android:orientation="vertical"
 tools:context=".CreateNoticeActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimary">
+    </androidx.appcompat.widget.Toolbar>
 
 
 <TableLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
 
     <TableRow
         android:layout_width="match_parent"

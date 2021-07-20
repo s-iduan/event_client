@@ -1,8 +1,11 @@
 package com.example.event_cord.utility;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.example.event_cord.EventCalendarActivity;
+import com.example.event_cord.EventsActivity;
 import com.example.event_cord.model.Constants;
 
 public class Helper {
@@ -13,5 +16,15 @@ public class Helper {
             return sharedPreferences.getInt(Constants.USER_ID, -1);
         }
         return -1;
+    }
+
+    public static void navigateToCalendarView(Context context) {
+        Intent intent = new Intent(context, EventCalendarActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void navigateToListView(Context context) {
+        Intent intent = new Intent(context, EventsActivity.class);
+        context.startActivity(intent);
     }
 }

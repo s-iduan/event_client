@@ -1,11 +1,14 @@
 package com.example.event_cord;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -39,6 +42,11 @@ public class CreateEventActivity extends AppCompatActivity {
     private EditText mStartTime;
     private EditText mEndDate;
     private EditText mEndTime;
+
+    private Toolbar toolbar;
+
+    private MenuItem calendarItem;
+    private MenuItem listItem;
 
     private int mEventId;
     private String mEventTitle;
@@ -108,6 +116,8 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mCreateButton = findViewById(R.id.createEvent);
         mTitle = findViewById(R.id.EditTextTitle);
@@ -178,6 +188,31 @@ public class CreateEventActivity extends AppCompatActivity {
                 timePicker.show(getSupportFragmentManager(), "TIME PICK");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        calendarItem = menu.findItem(R.id.calendarMenuItem);
+        listItem = menu.findItem(R.id.listMenuItem);
+
+        calendarItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToCalendarView(CreateEventActivity.this);
+                return true;
+            }
+        });
+
+        listItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToListView(CreateEventActivity.this);
+                return true;
+            }
+        });
+        return true;
     }
 
     private void updateEvent() {

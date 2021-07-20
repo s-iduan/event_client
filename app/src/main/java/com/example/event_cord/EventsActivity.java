@@ -1,6 +1,7 @@
 package com.example.event_cord;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -41,6 +44,11 @@ public class EventsActivity extends AppCompatActivity {
     private Button showAllEventButton;
     private Button showOnlyMyEventButton;
     private FloatingActionButton mFloatingActionButton;
+
+    private Toolbar toolbar;
+
+    private MenuItem calendarItem;
+    private MenuItem listItem;
 
     OnEventClickListener mOnEventClickLister = new OnEventClickListener() {
         @Override
@@ -105,6 +113,8 @@ public class EventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         progressDialog = new ProgressDialog(EventsActivity.this);
         progressDialog.setMessage("Loading....");
@@ -141,6 +151,31 @@ public class EventsActivity extends AppCompatActivity {
 
         updateEventList();
         updateButtonStatus();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        calendarItem = menu.findItem(R.id.calendarMenuItem);
+        listItem = menu.findItem(R.id.listMenuItem);
+
+        calendarItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToCalendarView(EventsActivity.this);
+                return true;
+            }
+        });
+
+        listItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToListView(EventsActivity.this);
+                return true;
+            }
+        });
+        return true;
     }
 
     private void updateButtonStatus() {

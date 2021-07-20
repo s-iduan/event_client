@@ -9,6 +9,8 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,11 +19,13 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.event_cord.RestClient.GetDataService;
 import com.example.event_cord.RestClient.RestClient;
 import com.example.event_cord.model.Constants;
 import com.example.event_cord.model.User;
+import com.example.event_cord.utility.Helper;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -41,11 +45,17 @@ public class UserLogin extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private TextView registerLink;
+    private Toolbar toolbar;
+
+    private MenuItem calendarItem;
+    private MenuItem listItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PATH_LOGGED_IN_USER, Context.MODE_PRIVATE);
         String loggedinUser = sharedPreferences.getString(Constants.USER_NAME, "");
@@ -56,6 +66,31 @@ public class UserLogin extends AppCompatActivity {
         } else {
             startLogin();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        calendarItem = menu.findItem(R.id.calendarMenuItem);
+        listItem = menu.findItem(R.id.listMenuItem);
+
+        calendarItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToCalendarView(UserLogin.this);
+                return true;
+            }
+        });
+
+        listItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToListView(UserLogin.this);
+                return true;
+            }
+        });
+        return true;
     }
 
     private void startLogin() {

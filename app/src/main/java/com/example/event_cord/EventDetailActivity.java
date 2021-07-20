@@ -1,11 +1,14 @@
 package com.example.event_cord;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,6 +43,11 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button mJoinEvent;
     private Button mLeaveEvent;
     private FloatingActionButton mFloatingActionButton;
+
+    private Toolbar toolbar;
+
+    private MenuItem calendarItem;
+    private MenuItem listItem;
 
     private int mEventId;
     private String mEventTitle;
@@ -104,6 +112,8 @@ public class EventDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
         mCreatorId = bundle.getInt(Constants.EVENT_CREATOR_ID_KEY);
@@ -163,6 +173,31 @@ public class EventDetailActivity extends AppCompatActivity {
 
         checkIfUserInTheEvent();
         updateNoticeList();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        calendarItem = menu.findItem(R.id.calendarMenuItem);
+        listItem = menu.findItem(R.id.listMenuItem);
+
+        calendarItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToCalendarView(EventDetailActivity.this);
+                return true;
+            }
+        });
+
+        listItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Helper.navigateToListView(EventDetailActivity.this);
+                return true;
+            }
+        });
+        return true;
     }
 
     void checkIfUserInTheEvent() {
